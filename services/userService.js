@@ -13,12 +13,14 @@ module.exports = {
 
   updateOne: async (id, fields) => {
     const user = await User.findOne({ where: { id } });
+    if (!user) return null;
     const result = await user.update(fields);
     return result;
   },
 
   deleteOne: async id => {
     const result = await User.destroy({ where: { id } });
-    return result;
+    if (result === 0) return null;
+    return {};
   }
 };
