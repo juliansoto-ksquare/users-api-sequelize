@@ -1,8 +1,13 @@
 const User = require("../models").User;
 
 module.exports = {
-  getAll: async () => {
-    const result = await User.findAll({});
+  getAll: async ({ offset = 0, limit = 10, sort = "firstName" }) => {
+    limit = Math.min(limit, 100); // max results is 100
+    const result = await User.findAll({
+      offset,
+      limit,
+      order: [[sort, "ASC"]]
+    });
     return result;
   },
 

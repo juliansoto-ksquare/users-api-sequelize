@@ -6,7 +6,8 @@ exports.post = async (req, res) => {
 };
 
 exports.get = async (req, res) => {
-  const result = await userService.getAll();
+  const { offset, limit, sort } = req.query;
+  const result = await userService.getAll({ offset, limit, sort });
   res.json(result);
 };
 
